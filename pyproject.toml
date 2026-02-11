@@ -1,0 +1,55 @@
+[project]
+name = "django-aws-beanstalk-api"
+version = "0.1.0"
+requires-python = ">=3.12.0"
+dependencies = [
+    "django-environ>=0.12.0",
+    "djangorestframework>=3.16.1",
+    "drf-spectacular>=0.29.0",
+    "gunicorn>=23.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "django-silk>=5.4.3",
+]
+test = [
+    "mypy>=1.19.0",
+    "ruff>=0.14.8",
+    "faker>=38.2.0",
+]
+
+stubs = [
+    "django-stubs[compatible-mypy]>=5.2.8",
+    "djangorestframework-stubs[compatible-mypy]>=3.16.6",
+]
+
+[tool.ruff]
+target-version = "py312"
+exclude = [".venv"]
+lint.extend-select = ["ALL"]
+lint.ignore = [
+  "ANN401",
+  "COM812",
+  "D100",
+  "D104",
+  "D106",
+  "D204",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"src/manage.py" = ["ANN201", "EM101", "PLC0415", "TRY003"]
+"src/*/migrations/*" = ["E501", "Q000", "RUF012", "I001", "D101"]
+"src/*/tests/*" = ["D102", "S101"]
+"src/main/django/*" = ["E402", "F403", "F405"] # allow wildcard imports
+"src/main/settings/*" = ["E402", "F403", "F405"] # allow wildcard imports
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+exclude = [".venv"]
+files = "src/"
+plugins = ["mypy_django_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "main.django.test"
