@@ -14,7 +14,7 @@ LOGGING = {
     "file": {
       "class": "logging.FileHandler",
       "filename": LOG_FILEPATH,
-      "level": LOG_LEVEL,
+      "level": "WARNING",
       "formatter": "verbose",
     },
   },
