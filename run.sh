@@ -9,4 +9,4 @@ echo "Running database migrations ..."
 python manage.py migrate
 
 echo "Running the application ..."
-gunicorn --bind :8000 main.wsgi
+python -m gunicorn --bind :8000 main.wsgi
