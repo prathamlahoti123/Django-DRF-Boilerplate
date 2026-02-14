@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -10,3 +11,7 @@ class BaseModel(models.Model):
   class Meta:
     abstract = True
     ordering = ("-created_at",)
+
+
+class User(AbstractUser):
+  """Custom user model."""
