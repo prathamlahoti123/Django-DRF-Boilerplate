@@ -10,8 +10,6 @@ INSTALLED_APPS.extend(
 
 INTERNAL_IPS = ["127.0.0.1"]
 
-# SilkyMiddleware can be simply appended to the list of middlewares
-MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
-
-# DebugToolbarMiddleware should be as early as possible in the list of middlewares
+# DebugToolbarMiddleware should be placed as early as possible
 MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+MIDDLEWARE.append("silk.middleware.SilkyMiddleware")
