@@ -75,6 +75,8 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
 
+AUTH_USER_MODEL = "core.User"
+
 
 from main.settings.db import *
 from main.settings.drf import *
