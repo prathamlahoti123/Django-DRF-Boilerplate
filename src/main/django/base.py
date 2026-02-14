@@ -2,9 +2,13 @@ import secrets
 
 from main.env import BASE_DIR, env
 
+ALLOWED_HOSTS = [
+  "localhost",
+  "127.0.0.1",
+  *env.list("DJANGO_ALLOWED_HOSTS", default=[]),
+]
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 SECRET_KEY = env.str("DJANGO_SECRET_KEY", default=secrets.token_urlsafe(32))
-DEBUG = env.bool("DJANGO_DEBUG", default=True)
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 
 INSTALLED_APPS = [
   "django.contrib.admin",
