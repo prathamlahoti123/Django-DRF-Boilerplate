@@ -1,0 +1,67 @@
+# Base Backend configuration
+x-backend: &backend
+  build: .
+  restart: always
+  env_file:
+    - .env
+  volumes:
+    - static_data:/src/staticfiles
+  healthcheck:
+    test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+    interval: 5s
+    timeout: 5s
+    retries: 5
+
+# Base Nginx configuration
+x-nginx: &nginx
+  build:
+    context: ./nginx
+  restart: always
+  ports:
+    - 80:80
+  volumes:
+    - static_data:/app/static
+
+
+services:
+
+  # ===================================DEVELOPMENT SERVICES===================================
+  backend-dev:
+    <<: *backend
+    build:
+      args:
+        DEV: true
+    environment:
+      - DJANGO_ALLOWED_HOSTS=backend-dev
+      - DJANGO_SETTINGS_MODULE=main.django.development
+    profiles: [dev]
+
+  nginx-dev:
+    <<: *nginx
+    environment:
+      - BACKEND_HOSTNAME=backend-dev
+    depends_on:
+      backend-dev:
+        condition: service_healthy
+    profiles: [dev]
+
+  # ===================================PRODUCTION SERVICES===================================
+
+  backend-prod:
+    <<: *backend
+    environment:
+      - DJANGO_ALLOWED_HOSTS=backend-prod
+      - DJANGO_SETTINGS_MODULE=main.django.production
+    profiles: [prod]
+
+  nginx-prod:
+    <<: *nginx
+    profiles: [prod]
+    environment:
+      - BACKEND_HOSTNAME=backend-prod
+    depends_on:
+      backend-prod:
+        condition: service_healthy
+
+volumes:
+  static_data:
