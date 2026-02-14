@@ -27,7 +27,7 @@ urlpatterns = [
 ]
 
 if os.environ["DJANGO_SETTINGS_MODULE"] == DjangoSettingsModule.DEVELOPMENT:
-  from debug_toolbar.toolbar import debug_toolbar_urls
+  from debug_toolbar.toolbar import debug_toolbar_urls  # type: ignore[import-untyped]
 
   urlpatterns += [
     path("silk/", include("silk.urls", namespace="silk")),
