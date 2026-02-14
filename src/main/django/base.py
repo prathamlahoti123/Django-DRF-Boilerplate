@@ -11,6 +11,7 @@ DEBUG = env.bool("DJANGO_DEBUG", default=False)
 SECRET_KEY = env.str("DJANGO_SECRET_KEY", default=secrets.token_urlsafe(32))
 
 INSTALLED_APPS = [
+  "unfold",
   "django.contrib.admin",
   "django.contrib.auth",
   "django.contrib.contenttypes",
