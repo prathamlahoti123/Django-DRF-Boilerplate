@@ -8,6 +8,8 @@ from drf_spectacular.views import (
   SpectacularSwaggerView,
 )
 
+from .constants import DjangoSettingsModule
+
 urlpatterns = [
   path("admin/", admin.site.urls),
   path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
@@ -24,7 +26,7 @@ urlpatterns = [
   path("", include("core.urls")),
 ]
 
-if os.environ["DJANGO_SETTINGS_MODULE"] == "main.django.local":
+if os.environ["DJANGO_SETTINGS_MODULE"] == DjangoSettingsModule.DEVELOPMENT:
   urlpatterns += [
     path("silk/", include("silk.urls", namespace="silk")),
   ]
