@@ -4,8 +4,9 @@ FROM ghcr.io/astral-sh/uv:python3.12-alpine AS builder
 # https://docs.astral.sh/uv/reference/environment
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
-    UV_NO_DEV=1 \
     UV_PYTHON_DOWNLOADS=0
+
+ARG DEV=false
 
 WORKDIR /build
 
@@ -14,10 +15,11 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-install-project
 
-COPY pyproject.toml uv.lock run.sh src/ /build
+COPY ./pyproject.toml ./uv.lock ./run.sh ./src/ /build
 
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked && \
+    uv sync --no-dev --locked && \
+    if [ $DEV = "true" ]; then uv sync --group dev --locked; fi && \
     chmod +x ./run.sh
 
 
@@ -28,22 +30,25 @@ ARG USER=nonroot \
     GROUP_GID=12345 \
     USER_UID=12345
 
-RUN addgroup --system --gid $GROUP_GID $USER && \
+WORKDIR /src
+
+RUN apk add --no-cache curl && \
+    addgroup --system --gid $GROUP_GID $USER && \
     adduser \
     --system \
     --disabled-password \
     --no-create-home $USER \
     --ingroup $USER \
     --uid $USER_UID \
-    $USER
+    $USER && \
+    mkdir -p ./staticfiles/ ./logs/ && \
+    chown -R $USER:$USER /src
 
-COPY --from=builder --chown=$USER:$USER /build /src
-
-ENV PATH="/src/.venv/bin:$PATH"
+COPY --from=builder /build /src
 
 USER $USER
 
-WORKDIR /src
+ENV PATH="/src/.venv/bin:$PATH"
 
 EXPOSE 8000
 
