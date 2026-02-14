@@ -4,6 +4,7 @@ INSTALLED_APPS.extend(
   [
     "silk",
     "debug_toolbar",
+    "django_extensions",
   ]
 )
 
