@@ -1,13 +1,10 @@
 from functools import lru_cache
-from typing import TYPE_CHECKING
 
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from faker import Faker
 from rest_framework.test import APITestCase
 
-if TYPE_CHECKING:
-  from django.contrib.auth.models import User
+from core.models import User
 
 
 @lru_cache
@@ -16,10 +13,9 @@ def get_faker() -> Faker:
   return Faker()
 
 
-def create_user(faker: Faker) -> "User":
+def create_user(faker: Faker) -> User:
   """Create and return a new user object using random user data."""
-  user = get_user_model()
-  return user.objects.create_user(
+  return User.objects.create_user(
     username=faker.user_name(),
     email=faker.email(),
     password=faker.password(),
