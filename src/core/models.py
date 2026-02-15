@@ -13,5 +13,11 @@ class BaseModel(models.Model):
     ordering = ("-created_at",)
 
 
-class User(AbstractUser):
+class User(BaseModel, AbstractUser):
   """Custom user model."""
+
+  date_joined = None
+
+  def __str__(self) -> str:
+    """Return string representation of the user."""
+    return f"{self.first_name} {self.last_name} <{self.email}>"
