@@ -16,7 +16,7 @@ class BaseModel(models.Model):
 class User(BaseModel, AbstractUser):
   """Custom user model."""
 
-  date_joined = None
+  date_joined = None  # type: ignore[assignment]
 
   def __str__(self) -> str:
     """Return string representation of the user."""
