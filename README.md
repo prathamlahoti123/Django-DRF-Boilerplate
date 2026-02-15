@@ -1,2 +1,22 @@
-# Django-DRF-Boilerplate
-Starter Django + Django Rest Framework Application Template
+## About
+
+
+## Features
+
+
+## Requirements
+
+
+## Environment
+
+
+## Configuration
+
+
+## Running
+
+
+## Usage
+
+
+## References
