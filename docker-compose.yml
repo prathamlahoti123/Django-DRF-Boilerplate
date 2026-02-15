@@ -45,18 +45,18 @@ services:
         condition: service_healthy
     profiles: [dev]
 
-  # ===================================PRODUCTION SERVICES===================================
+  # ===============================PRODUCTION and STAGE SERVICES===============================
 
   backend-prod:
     <<: *backend
     environment:
       - DJANGO_ALLOWED_HOSTS=backend-prod
       - DJANGO_SETTINGS_MODULE=main.django.production
-    profiles: [prod]
+    profiles: [prod, stage]
 
   nginx-prod:
     <<: *nginx
-    profiles: [prod]
+    profiles: [prod, stage]
     environment:
       - BACKEND_HOSTNAME=backend-prod
     depends_on:
