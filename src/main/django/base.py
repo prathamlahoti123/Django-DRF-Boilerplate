@@ -7,11 +7,12 @@ ALLOWED_HOSTS = [
   "127.0.0.1",
   *env.list("DJANGO_ALLOWED_HOSTS", default=[]),
 ]
-DEBUG = env.bool("DJANGO_DEBUG", default=False)
+DEBUG = env.bool("DJANGO_DEBUG", default=True)
 SECRET_KEY = env.str("DJANGO_SECRET_KEY", default=secrets.token_urlsafe(32))
 
 INSTALLED_APPS = [
   "unfold",
+  "unfold.contrib.filters",
   "django.contrib.admin",
   "django.contrib.auth",
   "django.contrib.contenttypes",
@@ -82,3 +83,4 @@ AUTH_USER_MODEL = "core.User"
 from main.settings.db import *
 from main.settings.drf import *
 from main.settings.logging import *
+from main.settings.unfold import *
