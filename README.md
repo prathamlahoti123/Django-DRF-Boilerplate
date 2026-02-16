@@ -12,6 +12,8 @@ Production-ready Django + Django REST Framework boilerplate focused on fast API 
 - Integration with [django-debug-toolbar](https://github.com/django-commons/django-debug-toolbar), [django-silk](https://github.com/jazzband/django-silk) and [django-extensions](https://github.com/django-extensions/django-extensions) for smooth development experience
 - Integration with [drf-spectacular](https://github.com/tfranzel/drf-spectacular) for OpenAPI schema generation and interactive API docs
 - Integration with [django-unfold](https://github.com/unfoldadmin/django-unfold) for a modernized admin UI
+- Integration with [Gunicorn](https://github.com/benoitc/gunicorn) for production-ready WSGI server
+- Integration with [Faker](https://github.com/joke2k/faker) to ensure random data generation for testing
 - Basic CI pipeline using on Github Actions
 - Basic logging configuration with console and file handlers
 - Custom `User` model
@@ -46,16 +48,19 @@ cp .env.example .env
 | --- | --- | --- |
 | DJANGO_SETTINGS_MODULE | `main.django.development` | Active settings module |
 | DJANGO_SECRET_KEY | generated at runtime if missing | Django secret key |
-| DJANGO_DEBUG | `1` in example / `True` in base default | Debug mode toggle |
+| DJANGO_DEBUG | `1` in example / `True` in base default | Whether to enable debug mode of the application or not |
 | DJANGO_ALLOWED_HOSTS | empty (plus localhost defaults) | Extra allowed hosts list |
+| DJANGO_ADMIN_EMAIL | required. No default value | Default email for Django admin UI |
+| DJANGO_ADMIN_USERNAME | required. No default value  | Default username for Django admin UI |
+| DJANGO_ADMIN_PASSWORD | randomly generated at runtime if missing | Default password for Django admin UI |
+| DJANGO_LOG_LEVEL | `INFO` | Global log level |
+| DJANGO_LOG_FILEPATH | `./logs/app.log` | File log destination |
+| DJANGO_ADMIN_UI_TITLE | `Django Admin Title` | Admin UI title |
+| DJANGO_ADMIN_UI_HEADER | `Django Admin Header` | Admin UI header |
 | DATABASE_URL | `sqlite:///./db.sqlite3` (example) | Database connection URL |
 | OPENAPI_TITLE | `Django APP` | OpenAPI title |
 | OPENAPI_DESCRIPTION | `Django Boilerplate APP` | OpenAPI description |
 | OPENAPI_VERSION | `0.0.1` | Exposed API version (`/version/`) |
-| DJANGO_LOG_LEVEL | `INFO` | Global log level |
-| DJANGO_LOG_FILEPATH | `./logs/app.log` | File log destination |
-| UNFOLD_SITE_TITLE | `Django Admin Title` | Admin UI title |
-| UNFOLD_SITE_HEADER | `Django Admin Header` | Admin UI header |
 | BACKEND_HOSTNAME | `backend-dev` in example | Nginx upstream backend host |
 
 
@@ -90,9 +95,11 @@ For running the application locally, you need to apply the database migrations, 
 
 ```bash
 uv run src/manage.py migrate
-uv run src/manage.py createsuperuser
+uv run src/manage.py createsu
 uv run src/manage.py runserver
 ```
+
+**Note**: [createsu](src/core/management/commands/createsu.py) is a custom management command that creates a superuser with the credentials specified in the environment variables (`DJANGO_ADMIN_USERNAME`, `DJANGO_ADMIN_EMAIL`, `DJANGO_ADMIN_PASSWORD`). If the password variable is not set, it will generate a random password and print it in the console.
 
 Then Navigate to `http://localhost:8000` to access the application in your browser.
 
@@ -109,7 +116,7 @@ Example of running the application in production mode:
 docker compose --profile prod up
 ```
 
-If there's a need to build the backend service image (e.g. after making changes to the Dockerfile or the base image), you can do it with the following command:
+If there's a need to build the backend service image (e.g. after making changes to the Dockerfile), you can do it with the following command:
 
 ```bash
 docker compose build backend-prod
@@ -122,10 +129,18 @@ docker compose build backend-prod
 
 ## References
 
-- [Django](https://docs.djangoproject.com/)
-- [Django REST Framework](https://www.django-rest-framework.org/)
-- [drf-spectacular](https://drf-spectacular.readthedocs.io/)
+- [Django](https://github.com/django/django)
+- [Django REST Framework](https://github.com/encode/django-rest-framework)
+- [Django Styleguide](https://github.com/HackSoftware/Django-Styleguide?tab=readme-ov-file#settings)
+- [uv](https://github.com/astral-sh/uv)
+- [ruff](https://github.com/astral-sh/ruff)
+- [mypy](https://github.com/python/mypy)
+- [django-debug-toolbar](https://github.com/django-commons/django-debug-toolbar)
+- [django-silk](https://github.com/jazzband/django-silk)
+- [django-extensions](https://github.com/django-extensions/django-extensions)
+- [drf-spectacular](https://github.com/tfranzel/drf-spectacular)
+- [django-unfold](https://github.com/unfoldadmin/django-unfold)
+- [Gunicorn](https://github.com/benoitc/gunicorn)
+- [Faker](https://github.com/joke2k/faker)
 - [django-environ](https://django-environ.readthedocs.io/)
-- [django-unfold](https://unfoldadmin.com/docs/)
-- [Gunicorn](https://docs.gunicorn.org/)
-- [uv](https://docs.astral.sh/uv/)
+- [Docker Compose profiles](https://docs.docker.com/reference/compose-file/profiles/)
