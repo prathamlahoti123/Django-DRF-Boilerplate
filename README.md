@@ -68,23 +68,29 @@ cp .env.example .env
 
 
 ## Installation
-Step 1. clone the repository and navigate to the project directory:
+Step 1: clone the repository and navigate to the project directory:
 
 ```bash
 git clone git@github.com:prathamlahoti123/Django-DRF-Boilerplate.git
 cd Django-DRF-Boilerplate/
 ```
 
-Step 2. install dependencies using *uv*:
+Step 2: install dependencies using *uv*:
 
 ```bash
 uv sync --all-groups
 ```
 
-Step 3. set up the configuration by creating a `.env` file and adjust values as needed:
+Step 3: set up the configuration by creating a `.env` file and adjust values as needed:
 
 ```bash
 cp .env.example .env
+```
+
+Step 4: create a new Django app and add it to the `INSTALLED_APPS` list in the settings [module](src/main/django/base.py):
+
+```bash
+uv run src/manage.py startapp myapp src/myapp/
 ```
 
 At this point you can run the application locally or using Docker Compose.
@@ -132,15 +138,3 @@ docker compose build backend-prod
 - [Django](https://github.com/django/django)
 - [Django REST Framework](https://github.com/encode/django-rest-framework)
 - [Django Styleguide](https://github.com/HackSoftware/Django-Styleguide?tab=readme-ov-file#settings)
-- [uv](https://github.com/astral-sh/uv)
-- [ruff](https://github.com/astral-sh/ruff)
-- [mypy](https://github.com/python/mypy)
-- [django-debug-toolbar](https://github.com/django-commons/django-debug-toolbar)
-- [django-silk](https://github.com/jazzband/django-silk)
-- [django-extensions](https://github.com/django-extensions/django-extensions)
-- [drf-spectacular](https://github.com/tfranzel/drf-spectacular)
-- [django-unfold](https://github.com/unfoldadmin/django-unfold)
-- [Gunicorn](https://github.com/benoitc/gunicorn)
-- [Faker](https://github.com/joke2k/faker)
-- [django-environ](https://django-environ.readthedocs.io/)
-- [Docker Compose profiles](https://docs.docker.com/reference/compose-file/profiles/)
