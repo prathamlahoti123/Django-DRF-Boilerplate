@@ -109,10 +109,10 @@ uv run src/manage.py runserver
 
 Then Navigate to `http://localhost:8000` to access the application in your browser.
 
-When using Docker Compose, everything will be provisioned and set up for you, so you can just run the appropriate command for the desired profile (see below) and access the app at `http://localhost`.
+When using Docker Compose, everything will be provisioned and set up for you, so you can just run the appropriate command for the specified profile (see below) and access the app at `http://localhost`.
 
 There are 3 profiles available:
-- `dev` for development (with debug toolbar, silk profiler, etc.)
+- `dev` for development (with debug toolbar, silk profiler, django_extensions package, etc.)
 - `prod` for production-like environment
 - `stage` for stage-like environment (same as prod but with different environment variables, e.g. `BACKEND_HOSTNAME`)
 
@@ -131,6 +131,16 @@ docker compose build backend-prod
 
 ## Usage
 
+After running the application, you can access the following endpoints:
+- `/` - index HTML page
+- `/admin/` - Django admin UI
+- `/api/schema/` - OpenAPI schema (JSON)
+- `/api/schema/docs/` - interactive API docs (Swagger UI)
+- `/api/schema/redoc/` - interactive API docs (Redoc)
+- `/version/` - exposed API version (defined by `OPENAPI_VERSION` environment variable)
+- `/silk/` - Django Silk profiler UI (only in development mode)
+
+**Tip**: use the admin credentials defined in the <ins>.env</ins> file to log in to the Django admin UI.
 
 
 ## References
