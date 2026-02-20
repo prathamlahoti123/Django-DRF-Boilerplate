@@ -51,14 +51,16 @@ cp .env.example .env
 | DJANGO_SECRET_KEY | generated at runtime if missing | Django secret key |
 | DJANGO_DEBUG | `1` in example / `True` in base default | Whether to enable debug mode of the application or not |
 | DJANGO_ALLOWED_HOSTS | empty (plus localhost defaults) | Extra allowed hosts list |
-| DJANGO_ADMIN_EMAIL | required. No default value | Default email for Django admin UI |
-| DJANGO_ADMIN_USERNAME | required. No default value  | Default username for Django admin UI |
+| DJANGO_ADMIN_EMAIL | - | Default email for Django admin UI |
+| DJANGO_ADMIN_USERNAME | -  | Default username for Django admin UI |
 | DJANGO_ADMIN_PASSWORD | randomly generated at runtime if missing | Default password for Django admin UI |
 | DJANGO_LOG_LEVEL | `INFO` | Global log level |
 | DJANGO_LOG_FILEPATH | `./logs/app.log` | File log destination |
 | DJANGO_ADMIN_UI_TITLE | `Django Admin Title` | Admin UI title |
 | DJANGO_ADMIN_UI_HEADER | `Django Admin Header` | Admin UI header |
-| DATABASE_URL | `sqlite:///./db.sqlite3` (example) | Database connection URL |
+| DATABASE_URL | `sqlite:///./db.sqlite3` | Database connection URL |
+| REDIS_PASSWORD | - | Password for Redis |
+| CACHE_URL | `http://localhost:6379` | Cache connection URL |
 | OPENAPI_TITLE | `Django APP` | OpenAPI title |
 | OPENAPI_DESCRIPTION | `Django Boilerplate APP` | OpenAPI description |
 | OPENAPI_VERSION | `0.0.1` | Exposed API version (`/version/`) |
