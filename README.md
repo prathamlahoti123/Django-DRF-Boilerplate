@@ -122,10 +122,10 @@ There are 3 profiles available:
 Example of running the application in production mode:
 
 ```bash
-docker compose --profile prod up
+docker compose --profile prod up --build
 ```
 
-If there's a need to build the backend service image (e.g. after making changes to the Dockerfile), you can do it with the following command:
+If there's a need to build the backend or Nginx service image (e.g. after making changes to the Dockerfile), you can do it with the following command:
 
 ```bash
 docker compose build backend-prod
