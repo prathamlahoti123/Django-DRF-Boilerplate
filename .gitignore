@@ -4,7 +4,6 @@ db.sqlite3
 .venv/
 .mypy_cache/
 .ruff_cache/
-.github/
 __pycache__/
 logs/
 src/staticfiles/
