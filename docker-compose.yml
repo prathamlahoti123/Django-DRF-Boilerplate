@@ -4,12 +4,15 @@ x-backend: &backend
   restart: always
   env_file:
     - .env
+  depends_on:
+    redis:
+      condition: service_healthy
   volumes:
     - static_data:/src/staticfiles
   healthcheck:
     test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
     interval: 5s
-    timeout: 5s
+    timeout: 5s 
     retries: 5
 
 # Base Nginx configuration
@@ -24,6 +27,20 @@ x-nginx: &nginx
 
 
 services:
+
+  redis:
+    image: redis:7.2-alpine
+    restart: always
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ./.redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD} ping"]
+      interval: 3s
+      timeout: 5s
+      retries: 3
+    profiles: [dev, stage, prod]
+
 
   # ===================================DEVELOPMENT SERVICES===================================
   backend-dev:
