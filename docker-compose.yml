@@ -24,6 +24,11 @@ x-nginx: &nginx
     - 80:80
   volumes:
     - static_data:/app/static
+  healthcheck:
+    test: ["CMD-SHELL", "curl -fsS --out-null http://localhost:8080/health"]
+    interval: 2s
+    timeout: 5s
+    retries: 5
 
 
 services:
