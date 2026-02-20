@@ -79,6 +79,7 @@ STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "core.User"
 
+from main.settings.cache import *
 from main.settings.custom import *
 from main.settings.db import *
 from main.settings.drf import *
