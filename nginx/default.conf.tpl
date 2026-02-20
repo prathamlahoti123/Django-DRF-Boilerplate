@@ -19,3 +19,13 @@ server {
     proxy_pass http://backend/;
   }
 }
+
+server {
+  listen 8080;
+  server_name localhost;
+
+  location = /health {
+    access_log off;
+    return 204;
+  }
+}
