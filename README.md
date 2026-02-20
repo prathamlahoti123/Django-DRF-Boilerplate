@@ -67,7 +67,7 @@ cp .env.example .env
 | BACKEND_HOSTNAME | `backend-dev` | backend host to be proxied by Nginx |
 
 
-**Note**: by default the application is running in the development mode. To switch to another environment, change the value of `DJANGO_SETTINGS_MODULE` accordingly (e.g. `main.django.production` for production mode).
+**Note**: by default the application is running in the **development** environment. To switch to another environment, change the value of `DJANGO_SETTINGS_MODULE` accordingly (e.g. `main.django.production` for production mode).
 
 
 ## Installation
