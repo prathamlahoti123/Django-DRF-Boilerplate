@@ -1,6 +1,10 @@
 .env
 db.sqlite3
+.redis_data/
 .venv/
+.mypy_cache/
+.ruff_cache/
+.github/
 __pycache__/
 logs/
 src/staticfiles/
