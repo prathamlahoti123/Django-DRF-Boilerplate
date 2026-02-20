@@ -10,10 +10,10 @@ x-backend: &backend
   volumes:
     - static_data:/src/staticfiles
   healthcheck:
-    test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+    test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health/ "]
     interval: 5s
     timeout: 5s 
-    retries: 5
+    retries: 3
 
 # Base Nginx configuration
 x-nginx: &nginx
@@ -28,7 +28,7 @@ x-nginx: &nginx
     test: ["CMD-SHELL", "curl -fsS --out-null http://localhost:8080/health"]
     interval: 2s
     timeout: 5s
-    retries: 5
+    retries: 3
 
 
 services:
