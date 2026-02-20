@@ -7,6 +7,7 @@ Production-ready Django + Django REST Framework boilerplate focused on fast API 
 - Environment-based settings (*development*, *stage*, *production*, *test*) according to the [Django Styleguide](https://github.com/HackSoftware/Django-Styleguide?tab=readme-ov-file#settings)
 - Environment-based deployment using Docker Compose [profiles](https://docs.docker.com/reference/compose-file/profiles/)
 - Integration with Nginx for reverse proxying and static file serving
+- Integration with Redis using [django-redis](https://github.com/jazzband/django-redis) package for caching
 - Integration with [uv](https://github.com/astral-sh/uv) for dependency management
 - Integration with [ruff](https://github.com/astral-sh/ruff) and [mypy](https://github.com/python/mypy) for linting and type checking
 - Integration with [django-debug-toolbar](https://github.com/django-commons/django-debug-toolbar), [django-silk](https://github.com/jazzband/django-silk) and [django-extensions](https://github.com/django-extensions/django-extensions) for smooth development experience
@@ -20,7 +21,7 @@ Production-ready Django + Django REST Framework boilerplate focused on fast API 
 
 
 ### Future integrations
-- Integration with PostgreSQL and Redis
+- Integration with PostgreSQL
 - 
 
 
