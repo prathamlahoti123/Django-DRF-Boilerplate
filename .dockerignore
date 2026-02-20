@@ -1,5 +1,6 @@
 .env
 db.sqlite3
+.redis_data/
 .venv/
 __pycache__/
 .mypy_cache/
