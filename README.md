@@ -48,9 +48,9 @@ cp .env.example .env
 | Variable | Default | Description |
 | --- | --- | --- |
 | DJANGO_SETTINGS_MODULE | `main.django.development` | Active settings module |
-| DJANGO_SECRET_KEY | generated at runtime if missing | Django secret key |
-| DJANGO_DEBUG | `1` in example / `True` in base default | Whether to enable debug mode of the application or not |
-| DJANGO_ALLOWED_HOSTS | empty (plus localhost defaults) | Extra allowed hosts list |
+| DJANGO_SECRET_KEY | randomly generated at runtime if missing | Django secret key |
+| DJANGO_DEBUG | `1` | Whether to enable Django debug mode or not |
+| DJANGO_ALLOWED_HOSTS | `['localhost', '127.0.0.1']` | Extra allowed hosts list |
 | DJANGO_ADMIN_EMAIL | - | Default email for Django admin UI |
 | DJANGO_ADMIN_USERNAME | -  | Default username for Django admin UI |
 | DJANGO_ADMIN_PASSWORD | randomly generated at runtime if missing | Default password for Django admin UI |
@@ -61,10 +61,10 @@ cp .env.example .env
 | DATABASE_URL | `sqlite:///./db.sqlite3` | Database connection URL |
 | REDIS_PASSWORD | - | Password for Redis |
 | CACHE_URL | `http://localhost:6379` | Cache connection URL |
-| OPENAPI_TITLE | `Django APP` | OpenAPI title |
-| OPENAPI_DESCRIPTION | `Django Boilerplate APP` | OpenAPI description |
-| OPENAPI_VERSION | `0.0.1` | Exposed API version (`/version/`) |
-| BACKEND_HOSTNAME | `backend-dev` in example | Nginx upstream backend host |
+| OPENAPI_TITLE | `Django Boilerplate` | title of the application for OpenAPI documentation |
+| OPENAPI_DESCRIPTION | `Django Boilerplate Application` | description of the application for OpenAPI documentation |
+| OPENAPI_VERSION | `0.2.0` | Version of the application for OpenAPI documentation |
+| BACKEND_HOSTNAME | `backend-dev` | backend host to be proxied by Nginx |
 
 
 **Note**: by default the application is running in the development mode. To switch to another environment, change the value of `DJANGO_SETTINGS_MODULE` accordingly (e.g. `main.django.production` for production mode).
