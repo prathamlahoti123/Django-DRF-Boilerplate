@@ -8,6 +8,7 @@ Production-ready Django + Django REST Framework boilerplate focused on fast API 
 - Environment-based deployment using Docker Compose [profiles](https://docs.docker.com/reference/compose-file/profiles/)
 - Integration with Nginx for reverse proxying and static file serving
 - Integration with Redis using [django-redis](https://github.com/jazzband/django-redis) package for caching
+- Integration with PostgreSQL using [psycopg](https://github.com/psycopg/psycopg) adapter
 - Integration with [uv](https://github.com/astral-sh/uv) for dependency management
 - Integration with [ruff](https://github.com/astral-sh/ruff) and [mypy](https://github.com/python/mypy) for linting and type checking
 - Integration with [django-debug-toolbar](https://github.com/django-commons/django-debug-toolbar), [django-silk](https://github.com/jazzband/django-silk) and [django-extensions](https://github.com/django-extensions/django-extensions) for smooth development experience
@@ -18,11 +19,6 @@ Production-ready Django + Django REST Framework boilerplate focused on fast API 
 - Basic CI pipeline using on Github Actions
 - Basic logging configuration with console and file handlers
 - Custom `User` model
-
-
-### Future integrations
-- Integration with PostgreSQL
-- 
 
 
 ## Requirements
@@ -58,12 +54,15 @@ cp .env.example .env
 | DJANGO_LOG_FILEPATH | `./logs/app.log` | File log destination |
 | DJANGO_ADMIN_UI_TITLE | `Django Admin Title` | Admin UI title |
 | DJANGO_ADMIN_UI_HEADER | `Django Admin Header` | Admin UI header |
-| DATABASE_URL | `sqlite:///./db.sqlite3` | Database connection URL |
+| POSTGRES_USER | `django` | Database username |
+| POSTGRES_PASSWORD | `django` | Database password |
+| POSTGRES_DB | `django` | Database name |
+| DATABASE_URL | `sqlite:///db.sqlite3` | Database connection URL |
 | REDIS_PASSWORD | - | Password for Redis |
 | CACHE_URL | `http://localhost:6379` | Cache connection URL |
 | OPENAPI_TITLE | `Django Boilerplate` | title of the application for OpenAPI documentation |
 | OPENAPI_DESCRIPTION | `Django Boilerplate Application` | description of the application for OpenAPI documentation |
-| OPENAPI_VERSION | `0.2.0` | Version of the application for OpenAPI documentation |
+| OPENAPI_VERSION | `0.3.0` | Version of the application for OpenAPI documentation |
 | BACKEND_HOSTNAME | `backend-dev` | backend host to be proxied by Nginx |
 
 
