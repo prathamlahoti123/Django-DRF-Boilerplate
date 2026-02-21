@@ -1,5 +1,6 @@
 .env
 db.sqlite3
+.pg_data/
 .redis_data/
 .venv/
 __pycache__/
