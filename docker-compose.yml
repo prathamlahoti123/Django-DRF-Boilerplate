@@ -25,7 +25,7 @@ x-backend: &backend
   volumes:
     - static_data:/src/staticfiles
   healthcheck:
-    test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health/ "]
+    test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health/"]
     interval: 5s
     timeout: 10s
     retries: 5
