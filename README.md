@@ -30,13 +30,13 @@ Production-ready Django + Django REST Framework boilerplate focused on fast API 
 
 ## Settings and configuration
 
-Environment variables are loaded from the <ins>.env</ins> file that must be located in the root project directory.
-
-You can generate it from the [.env.example](.env.example) and adjust values as needed:
+Configuration of the entire stack is primarily based on the environment variables. The right way would be to declare them in the <ins>./config/.env</ins> file that can be generated from the template [template](./config/.env.example) like that:
 
 ```bash
-cp .env.example .env
+cp ./config/.env.example ./config/.env
 ```
+
+Once the <ins>./config/.env</ins> file is created, you can adjust the values of the variables as needed. Some parameters have default values, so you can omit them from the file if the defaults work for you.
 
 
 ### Key variables
@@ -63,7 +63,14 @@ cp .env.example .env
 | OPENAPI_TITLE | `Django Boilerplate` | title of the application for OpenAPI documentation |
 | OPENAPI_DESCRIPTION | `Django Boilerplate Application` | description of the application for OpenAPI documentation |
 | OPENAPI_VERSION | `0.3.0` | Version of the application for OpenAPI documentation |
-| BACKEND_HOSTNAME | `backend-dev` | backend host to be proxied by Nginx |
+| GUNICORN_WORKERS | *(2 x $num_cores) + 1* | Number of worker processes |
+| GUNICORN_WORKER_CLASS | `gevent` | Worker class type |
+| GUNICORN_WORKER_CONNECTIONS | `1000` | Maximum number of simultaneous clients |
+| GUNICORN_TIMEOUT | `30` | Worker timeout in seconds |
+| GUNICORN_GRACEFUL_TIMEOUT | `30` | Timeout for graceful workers restart in seconds |
+| GUNICORN_KEEPALIVE | `2` | Keep-alive duration in seconds |
+| GUNICORN_MAX_REQUESTS | `1000` | Maximum number of requests a worker will process before restarting |
+| GUNICORN_MAX_REQUESTS_JITTER | `50` | Maximum jitter for the max requests setting |
 
 
 **Note**: by default the application is running in the **development** environment. To switch to another environment, change the value of `DJANGO_SETTINGS_MODULE` accordingly (e.g. `main.django.production` for production mode).
@@ -121,7 +128,7 @@ There are 3 profiles available:
 Example of running the application in production mode:
 
 ```bash
-docker compose --profile prod up --build
+docker compose --env-file ./config/.env --profile prod up --build 
 ```
 
 If there's a need to build the backend or Nginx service image (e.g. after making changes to the Dockerfile), you can do it with the following command:
@@ -150,3 +157,4 @@ After running the application, you can access the following endpoints:
 - [Django](https://github.com/django/django)
 - [Django REST Framework](https://github.com/encode/django-rest-framework)
 - [Django Styleguide](https://github.com/HackSoftware/Django-Styleguide?tab=readme-ov-file#settings)
+- [Gunicorn Settings](https://gunicorn.org/reference/settings/)
