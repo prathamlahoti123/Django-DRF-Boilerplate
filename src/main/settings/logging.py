@@ -1,7 +1,6 @@
 from main.env import env
 
 LOG_LEVEL = env.str("DJANGO_LOG_LEVEL", default="INFO").upper()
-LOG_FILEPATH = env.str("DJANGO_LOG_FILEPATH", default="./logs/app.log")
 LOGGING = {
   "version": 1,
   "disable_existing_loggers": False,
@@ -11,16 +10,10 @@ LOGGING = {
       "level": LOG_LEVEL,
       "formatter": "simple",
     },
-    "file": {
-      "class": "logging.FileHandler",
-      "filename": LOG_FILEPATH,
-      "level": "WARNING",
-      "formatter": "verbose",
-    },
   },
   "loggers": {
     "": {
-      "handlers": ["console", "file"],
+      "handlers": ["console"],
       "level": LOG_LEVEL,
     },
   },
