@@ -5,5 +5,5 @@ import environ  # type: ignore[import-untyped]
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-env_fp = Path(__file__).parents[2] / ".env"
+env_fp = Path(__file__).parents[2] / "config" / ".env"
 environ.Env.read_env(env_fp)
