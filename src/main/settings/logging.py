@@ -1,6 +1,6 @@
 import os
 
-from pythonjsonlogger.jsonlogger import JsonFormatter
+from pythonjsonlogger.json import JsonFormatter
 
 from main.constants import DjangoSettingsModule
 from main.env import env
