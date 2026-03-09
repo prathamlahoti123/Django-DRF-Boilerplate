@@ -116,6 +116,7 @@ services:
     environment:
       <<: *backend-env
       DJANGO_ALLOWED_HOSTS: backend-prod
+      DJANGO_LOG_LEVEL: WARNING
       DJANGO_SETTINGS_MODULE: main.django.production
     profiles: [prod, stage]
 
