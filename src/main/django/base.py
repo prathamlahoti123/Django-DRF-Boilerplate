@@ -8,7 +8,10 @@ ALLOWED_HOSTS = [
   *env.list("DJANGO_ALLOWED_HOSTS", default=[]),
 ]
 DEBUG = env.bool("DJANGO_DEBUG", default=True)
-SECRET_KEY = env.str("DJANGO_SECRET_KEY", default=secrets.token_urlsafe(32))
+SECRET_KEY = env.str(
+  "DJANGO_SECRET_KEY",
+  default="qGb8aeJj3aG8_JT1JCFtborb1l-Sg1JDhiZsqeLk2fo",
+)
 
 INSTALLED_APPS = [
   "unfold",
