@@ -44,14 +44,13 @@ Once the <ins>./config/.env</ins> file is created, you can adjust the values of 
 | Variable | Default | Description |
 | --- | --- | --- |
 | DJANGO_SETTINGS_MODULE | `main.django.development` | Active settings module |
-| DJANGO_SECRET_KEY | randomly generated at runtime if missing | Django secret key |
+| DJANGO_SECRET_KEY | statically set random string | Django secret key |
 | DJANGO_DEBUG | `1` | Whether to enable Django debug mode or not |
 | DJANGO_ALLOWED_HOSTS | `['localhost', '127.0.0.1']` | Extra allowed hosts list |
-| DJANGO_ADMIN_EMAIL | - | Default email for Django admin UI |
-| DJANGO_ADMIN_USERNAME | -  | Default username for Django admin UI |
+| DJANGO_ADMIN_EMAIL | `admin@example.com` | Default email for Django admin UI |
+| DJANGO_ADMIN_USERNAME | `admin` | Default username for Django admin UI |
 | DJANGO_ADMIN_PASSWORD | randomly generated at runtime if missing | Default password for Django admin UI |
 | DJANGO_LOG_LEVEL | `INFO` | Global log level |
-| DJANGO_LOG_FILEPATH | `./logs/app.log` | File log destination |
 | DJANGO_ADMIN_UI_TITLE | `Django Admin Title` | Admin UI title |
 | DJANGO_ADMIN_UI_HEADER | `Django Admin Header` | Admin UI header |
 | POSTGRES_USER | `django` | Database username |
@@ -62,7 +61,7 @@ Once the <ins>./config/.env</ins> file is created, you can adjust the values of 
 | CACHE_URL | `http://localhost:6379` | Cache connection URL |
 | OPENAPI_TITLE | `Django Boilerplate` | title of the application for OpenAPI documentation |
 | OPENAPI_DESCRIPTION | `Django Boilerplate Application` | description of the application for OpenAPI documentation |
-| OPENAPI_VERSION | `0.3.0` | Version of the application for OpenAPI documentation |
+| OPENAPI_VERSION | `0.5.0` | Version of the application for OpenAPI documentation |
 | GUNICORN_WORKERS | *(2 x $num_cores) + 1* | Number of worker processes |
 | GUNICORN_WORKER_CLASS | `gevent` | Worker class type |
 | GUNICORN_WORKER_CONNECTIONS | `1000` | Maximum number of simultaneous clients |
@@ -73,14 +72,20 @@ Once the <ins>./config/.env</ins> file is created, you can adjust the values of 
 | GUNICORN_MAX_REQUESTS_JITTER | `50` | Maximum jitter for the max requests setting |
 
 
-**Note**: by default the application is running in the **development** environment. To switch to another environment, change the value of `DJANGO_SETTINGS_MODULE` accordingly (e.g. `main.django.production` for production mode).
+#### Notes:
+
+- by default the application is running in the **development** environment. To switch to another environment, change the value of `DJANGO_SETTINGS_MODULE` accordingly (e.g. `main.django.production` for production mode);
+
+- `GUNICORN_WORKERS` is explicitly set to 1 for `backend-dev` service in [docker-compose.yml](docker-compose.yml) file to prevent multi-workers issue with the *Django Debug Toolbar* and *Django Silk* profiler;
+
+- once the application is running, make sure to change the default admin credentials using *Django Admin UI*.
 
 
 ## Installation
 Step 1: clone the repository and navigate to the project directory:
 
 ```bash
-git clone git@github.com:prathamlahoti123/Django-DRF-Boilerplate.git
+git clone git@github.com:serhiiur/Django-DRF-Boilerplate.git
 cd Django-DRF-Boilerplate/
 ```
 
@@ -93,7 +98,7 @@ uv sync --all-groups
 Step 3: set up the configuration by creating a `.env` file and adjust values as needed:
 
 ```bash
-cp .env.example .env
+cp ./config/.env.example ./config/.env
 ```
 
 Step 4: create a new Django app and add it to the `INSTALLED_APPS` list in the settings [module](src/main/django/base.py):
